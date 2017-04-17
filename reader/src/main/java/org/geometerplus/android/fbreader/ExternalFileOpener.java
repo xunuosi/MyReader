@@ -24,6 +24,7 @@ import java.util.Random;
 
 import android.app.AlertDialog;
 import android.content.*;
+import android.util.Log;
 
 import org.geometerplus.zlibrary.core.options.Config;
 import org.geometerplus.zlibrary.core.options.ZLStringOption;
@@ -39,6 +40,7 @@ import org.geometerplus.android.fbreader.formatPlugin.PluginUtil;
 import org.geometerplus.android.util.PackageUtil;
 
 class ExternalFileOpener implements FBReaderApp.ExternalFileOpener {
+	private static final String TAG = "ExternalFileOpener";
 	private final String myPluginCode = new BigInteger(80, new Random()).toString();
 	private final FBReader myReader;
 	private volatile AlertDialog myDialog;
@@ -48,6 +50,7 @@ class ExternalFileOpener implements FBReaderApp.ExternalFileOpener {
 	}
 
 	public void openFile(final ExternalFormatPlugin plugin, final Book book, Bookmark bookmark) {
+		Log.e("xns", TAG + "_openFile(),plugin:" + plugin.supportedFileType());
 		if (myDialog != null) {
 			myDialog.dismiss();
 			myDialog = null;

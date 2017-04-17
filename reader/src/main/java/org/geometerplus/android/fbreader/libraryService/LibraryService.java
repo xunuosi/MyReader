@@ -26,6 +26,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.IBinder;
 import android.os.FileObserver;
+import android.util.Log;
 
 import org.geometerplus.zlibrary.core.options.Config;
 
@@ -186,10 +187,12 @@ public class LibraryService extends Service {
 		}
 
 		public String getRecentBook(int index) {
+            Log.e("xns", "LibarayService.getRecentBook_index:" + index);
 			return SerializerUtil.serialize(myCollection.getRecentBook(index));
 		}
 
 		public String getBookByFile(String path) {
+			Log.e("xns", "LibarayService.getBookByFile_path:" + path);
 			return SerializerUtil.serialize(myCollection.getBookByFile(path));
 		}
 

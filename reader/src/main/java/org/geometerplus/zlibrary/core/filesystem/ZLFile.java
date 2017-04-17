@@ -19,6 +19,8 @@
 
 package org.geometerplus.zlibrary.core.filesystem;
 
+import android.util.Log;
+
 import java.io.*;
 import java.util.*;
 
@@ -28,6 +30,7 @@ import org.geometerplus.zlibrary.core.drm.embedding.EmbeddingInputStream;
 import org.geometerplus.zlibrary.core.util.InputStreamHolder;
 
 public abstract class ZLFile implements InputStreamHolder {
+	private static final String TAG = "ZLFile";
 	private final static HashMap<String,ZLFile> ourCachedFiles = new HashMap<String,ZLFile>();
 
 	protected interface ArchiveType {
@@ -116,6 +119,8 @@ public abstract class ZLFile implements InputStreamHolder {
 	}
 
 	public static ZLFile createFileByPath(String path) {
+		// file:///storage/emulated/0/Download/Day.txt
+//		Log.e("xns", TAG + "old path:" + path);
 		if (path == null) {
 			return null;
 		}
@@ -132,17 +137,20 @@ public abstract class ZLFile implements InputStreamHolder {
 				len -= 2;
 				first = len == 0 ? '*' : path.charAt(0);
 			}
+//			Log.e("xns", TAG + "ResourceFile path:" + path);
 			return ZLResourceFile.createResourceFile(path);
 		}
 		int index = path.lastIndexOf(':');
 		if (index > 1) {
 			final ZLFile archive = createFileByPath(path.substring(0, index));
 			if (archive != null && archive.myArchiveType != 0) {
+//				Log.e("xns", TAG + "ZLArchiveEntryFile path:" + path);
 				return ZLArchiveEntryFile.createArchiveEntryFile(
 					archive, path.substring(index + 1)
 				);
 			}
 		}
+		Log.e("xns", TAG + "ZLPhysicalFile path:" + path);
 		return new ZLPhysicalFile(path);
 	}
 

@@ -19,6 +19,8 @@
 
 package org.geometerplus.fbreader.fbreader;
 
+import android.util.Log;
+
 import java.util.*;
 
 import org.fbreader.util.ComparisonUtil;
@@ -40,6 +42,7 @@ import org.geometerplus.fbreader.network.sync.SyncData;
 import org.geometerplus.fbreader.util.*;
 
 public final class FBReaderApp extends ZLApplication {
+	private static final String TAG = "FBReaderApp";
 	public interface ExternalFileOpener {
 		public void openFile(ExternalFormatPlugin plugin, Book book, Bookmark bookmark);
 	}
@@ -80,7 +83,6 @@ public final class FBReaderApp extends ZLApplication {
 		super(systemInfo);
 
 		Collection = collection;
-
 		collection.addListener(new IBookCollection.Listener<Book>() {
 			public void onBookEvent(BookEvent event, Book book) {
 				switch (event) {
@@ -182,7 +184,7 @@ public final class FBReaderApp extends ZLApplication {
 		final Book bookToOpen = book;
 		bookToOpen.addNewLabel(Book.READ_LABEL);
 		Collection.saveBook(bookToOpen);
-
+		Log.e("xns", TAG + "_openBook,path:" + book.getPath());
 		final SynchronousExecutor executor = createExecutor("loadingBook");
 		executor.execute(new Runnable() {
 			public void run() {
@@ -316,6 +318,7 @@ public final class FBReaderApp extends ZLApplication {
 	}
 
 	private synchronized void openBookInternal(final Book book, Bookmark bookmark, boolean force) {
+		Log.e("xns", TAG + "_openBookInternal,path:" + book.getPath());
 		if (!force && Model != null && Collection.sameBook(book, Model.Book)) {
 			if (bookmark != null) {
 				gotoBookmark(bookmark, false);
@@ -338,12 +341,14 @@ public final class FBReaderApp extends ZLApplication {
 		final FormatPlugin plugin;
 		try {
 			plugin = BookUtil.getPlugin(pluginCollection, book);
+			Log.e("xns", TAG + "_openBookInternal,plugin:" + plugin.supportedFileType());
 		} catch (BookReadingException e) {
 			processException(e);
 			return;
 		}
 
 		if (plugin instanceof ExternalFormatPlugin) {
+			Log.e("xns", TAG + "_openBookInternal,plugin:" + "ExternalFormatPlugin");
 			ExternalBook = book;
 			final Bookmark bm;
 			if (bookmark != null) {

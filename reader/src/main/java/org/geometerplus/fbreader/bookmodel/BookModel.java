@@ -125,7 +125,6 @@ public final class BookModel {
 	}
 
 	public ZLTextModel getTextModel() {
-		Log.e("xns", "myBookTextModel.getParagraphsNumber():" + myBookTextModel.getParagraphsNumber());
 		return myBookTextModel;
 //		return new ZLTextPlainModel();
 	}

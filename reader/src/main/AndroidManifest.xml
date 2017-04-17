@@ -12,11 +12,7 @@
         android:xlargeScreens="true" />
 
     <application
-        android:name="org.geometerplus.android.fbreader.FBReaderApplication"
-        android:icon="@drawable/fbreader"
-        android:label="@string/app_name"
-        tools:replace="android:icon"
-        android:logo="@drawable/fbreader_bw">
+        android:name="org.geometerplus.android.fbreader.FBReaderApplication">
         <activity
             android:name="org.geometerplus.android.fbreader.error.BookReadingErrorActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -77,14 +73,13 @@
         <activity
             android:name="org.geometerplus.android.fbreader.FBReader"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:icon="@drawable/fbreader"
             android:label="@string/app_name"
             android:launchMode="singleTask"
             android:theme="@style/FBReader.Activity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
             <intent-filter>
                 <action android:name="android.fbreader.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />

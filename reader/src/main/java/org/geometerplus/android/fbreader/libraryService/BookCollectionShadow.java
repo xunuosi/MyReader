@@ -25,6 +25,7 @@ import android.app.Service;
 import android.content.*;
 import android.os.IBinder;
 import android.os.RemoteException;
+import android.util.Log;
 
 import org.geometerplus.zlibrary.core.options.Config;
 
@@ -36,6 +37,7 @@ import org.geometerplus.fbreader.book.*;
 import org.geometerplus.android.fbreader.api.FBReaderIntents;
 
 public class BookCollectionShadow extends AbstractBookCollection<Book> implements ServiceConnection {
+	private static final String TAG = "BookCollectionShadow";
 	private volatile Context myContext;
 	private volatile LibraryInterface myInterface;
 	private final List<Runnable> myOnBindActions = new LinkedList<Runnable>();
@@ -180,6 +182,7 @@ public class BookCollectionShadow extends AbstractBookCollection<Book> implement
 			return null;
 		}
 		try {
+//			Log.e("xns", TAG + "_getRecentBook,index:" + index + "myInterface.getRecentBook(index)：" + myInterface.getRecentBook(index));
 			return SerializerUtil.deserializeBook(myInterface.getRecentBook(index), this);
 		} catch (RemoteException e) {
 			e.printStackTrace();

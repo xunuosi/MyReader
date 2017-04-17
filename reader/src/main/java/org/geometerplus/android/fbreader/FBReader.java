@@ -89,6 +89,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.PowerManager;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -169,6 +170,7 @@ public final class FBReader extends FBReaderMainActivity implements ZLApplicatio
 		if (myBook == null) {
 			final Uri data = intent.getData();
 			if (data != null) {
+				Log.e("xns", "data:" + data);
 				myBook = createBookForFile(ZLFile.createFileByPath(data.getPath()));
 			}
 		}
